@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Balanceo de Carga Dinámico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Balanceo de Carga Dinámico</h1>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="post" action="/resolver">
+            <label>Capacidad Enlace 1 (C1):</label>
+            <input type="number" name="c1" step="any" required value="{{ c1 or '' }}">
+
+            <label>Capacidad Enlace 2 (C2):</label>
+            <input type="number" name="c2" step="any" required value="{{ c2 or '' }}">
+
+            <label>Capacidad Enlace 3 (C3):</label>
+            <input type="number" name="c3" step="any" required value="{{ c3 or '' }}">
+
+            <p><strong>Total de Carga:</strong> 300 Mbps</p>
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        {% if cargas %}
+            <div class="resultado">
+                <h2>Resultado Óptimo</h2>
+                <p>Carga en Enlace 1: {{ cargas[0] }} Mbps</p>
+                <p>Carga en Enlace 2: {{ cargas[1] }} Mbps</p>
+                <p>Carga en Enlace 3: {{ cargas[2] }} Mbps</p>
+                <p><strong>Total Acumulado:</strong> {{ total_acumulado }} Mbps</p>
+                <p>Penalización mínima: {{ penalizacion }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
